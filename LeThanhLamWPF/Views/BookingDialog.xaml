@@ -36,8 +36,8 @@
                     <DataGridTextColumn Header="Room #" Binding="{Binding RoomNumber}" Width="70"/>
                     <DataGridTextColumn Header="Type" Binding="{Binding RoomType.RoomTypeName}" Width="100"/>
                     <DataGridTextColumn Header="Capacity" Binding="{Binding RoomMaxCapacity}" Width="80"/>
-                    <DataGridTextColumn Header="Price/Night" Binding="{Binding RoomPricePerDate, StringFormat=C}" Width="100"/>
-                    <DataGridTextColumn Header="Description" Binding="{Binding RoomDescription}" Width="*"/>
+                    <DataGridTextColumn Header="Price/Night" Binding="{Binding RoomPricePerDay, StringFormat=C}" Width="100"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding RoomDetailDescription}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
 

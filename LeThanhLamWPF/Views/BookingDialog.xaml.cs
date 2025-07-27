@@ -32,8 +32,7 @@ namespace LeThanhLamWPF.Views
             _customer = customer;
             Booking = new BookingReservation
             {
-                CustomerId = customer.CustomerId,
-                Customer = customer
+                CustomerId = customer.CustomerId
             };
 
             // Set minimum dates
@@ -105,10 +104,13 @@ namespace LeThanhLamWPF.Views
                 BookButton.IsEnabled = true;
 
                 // Update booking object
-                // Booking.RoomInformation = selectedRoom;
                 Booking.TotalPrice = totalPrice;
 
-                // Tạo mới BookingDetail cho booking này
+                // Đảm bảo booking có ngày đặt và trạng thái
+                Booking.BookingDate = DateOnly.FromDateTime(DateTime.Now);
+                Booking.BookingStatus = 1; // 1 = Active
+
+                // Tạo mới BookingDetail cho booking này (chỉ gán RoomId, không gán Room)
                 Booking.BookingDetails = new List<BookingDetail>
                 {
                     new BookingDetail
@@ -116,8 +118,7 @@ namespace LeThanhLamWPF.Views
                         RoomId = selectedRoom.RoomId,
                         StartDate = DateOnly.FromDateTime(startDate),
                         EndDate = DateOnly.FromDateTime(endDate),
-                        ActualPrice = totalPrice,
-                        Room = selectedRoom
+                        ActualPrice = totalPrice
                     }
                 };
             }
@@ -131,19 +132,32 @@ namespace LeThanhLamWPF.Views
 
         private void BookButton_Click(object sender, RoutedEventArgs e)
         {
-            var detail = Booking.BookingDetails.FirstOrDefault();
-            if (_bookingService.AddBooking(Booking) && detail != null)
+            // Validate that BookingDetails is not null or empty
+            if (Booking.BookingDetails == null || Booking.BookingDetails.Count == 0)
             {
-                MessageBox.Show($"Room {detail.Room.RoomNumber} booked successfully from " +
-                               $"{detail.StartDate.ToString("dd/MM/yyyy")} to {detail.EndDate.ToString("dd/MM/yyyy")}.",
-                               "Booking Confirmed", MessageBoxButton.OK, MessageBoxImage.Information);
-                DialogResult = true;
-                Close();
+                MessageBox.Show("Bạn phải chọn phòng trước khi đặt!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            else
+            var detail = Booking.BookingDetails.FirstOrDefault();
+            try
             {
-                MessageBox.Show("Unable to complete booking. Please try again.",
-                               "Booking Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (_bookingService.AddBooking(Booking) && detail != null)
+                {
+                    MessageBox.Show($"Room {detail.Room.RoomNumber} booked successfully from " +
+                                   $"{detail.StartDate.ToString("dd/MM/yyyy")} to {detail.EndDate.ToString("dd/MM/yyyy")}.",
+                                   "Booking Confirmed", MessageBoxButton.OK, MessageBoxImage.Information);
+                    DialogResult = true;
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to complete booking. Please try again.",
+                                   "Booking Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

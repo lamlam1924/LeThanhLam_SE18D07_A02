@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BusinessObjects.Models;
 using BusinessLogicLayer.Repositories;
+using System.Windows;
 
 namespace BusinessLogicLayer.Services
 {
@@ -57,22 +58,15 @@ namespace BusinessLogicLayer.Services
 
         public bool AddBooking(BookingReservation booking)
         {
+            if (!ValidateBooking(booking)) return false;
             try
             {
-                if (!ValidateBooking(booking))
-                    return false;
-
-                var detail = booking.BookingDetails.FirstOrDefault();
-                if (detail == null) return false;
-
-                if (!IsRoomAvailable(detail.RoomId, detail.StartDate.ToDateTime(TimeOnly.MinValue), detail.EndDate.ToDateTime(TimeOnly.MinValue)))
-                    return false;
-
-                _bookingRepository?.AddBooking(booking);
+                _bookingRepository.AddBooking(booking);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"Error: {ex.Message}");
                 return false;
             }
         }
