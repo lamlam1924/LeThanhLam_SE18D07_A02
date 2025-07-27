@@ -1,0 +1,59 @@
+﻿<Window x:Class="LeThanhLamWPF.Views.BookingHistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LeThanhLamWPF.Views"
+        mc:Ignorable="d"
+        Title="Booking History" Height="500" Width="800"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Your Booking History" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+        <!-- Bookings List -->
+        <DataGrid Grid.Row="1" x:Name="BookingsDataGrid" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Booking ID" Binding="{Binding BookingReservationID}" Width="80"/>
+                <DataGridTextColumn Header="Room" Binding="{Binding RoomInformation.RoomNumber}" Width="80"/>
+                <DataGridTextColumn Header="Room Type" Binding="{Binding RoomInformation.RoomType.RoomTypeName}" Width="100"/>
+                <DataGridTextColumn Header="Check-in" Binding="{Binding ActualStartDate, StringFormat=d}" Width="100"/>
+                <DataGridTextColumn Header="Check-out" Binding="{Binding ActualEndDate, StringFormat=d}" Width="100"/>
+                <DataGridTextColumn Header="Total Price" Binding="{Binding TotalPrice, StringFormat=C}" Width="100"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding BookingStatusText}" Width="100"/>
+                <DataGridTemplateColumn Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Cancel" Click="CancelButton_Click" 
+                                    Background="#e74c3c" Foreground="White" BorderThickness="0"
+                                    Tag="{Binding BookingReservationID}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CanCancel}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Footer -->
+        <Button Grid.Row="2" Content="Close" Width="80" Height="35" Margin="0,20,0,0"
+                HorizontalAlignment="Right" Click="CloseButton_Click"/>
+    </Grid>
+
+</Window>

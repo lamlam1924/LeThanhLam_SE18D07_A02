@@ -1,0 +1,72 @@
+﻿<Window x:Class="LeThanhLamWPF.Views.BookingDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LeThanhLamWPF.Views"
+        mc:Ignorable="d"
+         Title="Book a Room" Height="550" Width="500"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Room Booking" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+        <!-- Form -->
+        <StackPanel Grid.Row="1">
+            <Label Content="Check-in Date:" FontWeight="SemiBold"/>
+            <DatePicker x:Name="StartDatePicker" Height="35" Margin="0,0,0,15" 
+                       SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+
+            <Label Content="Check-out Date:" FontWeight="SemiBold"/>
+            <DatePicker x:Name="EndDatePicker" Height="35" Margin="0,0,0,15"
+                       SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+
+            <Label Content="Available Rooms:" FontWeight="SemiBold"/>
+            <DataGrid x:Name="RoomsDataGrid" Height="200" Margin="0,0,0,15" 
+                     AutoGenerateColumns="False" SelectionMode="Single" 
+                     SelectionChanged="RoomsDataGrid_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Room #" Binding="{Binding RoomNumber}" Width="70"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding RoomType.RoomTypeName}" Width="100"/>
+                    <DataGridTextColumn Header="Capacity" Binding="{Binding RoomMaxCapacity}" Width="80"/>
+                    <DataGridTextColumn Header="Price/Night" Binding="{Binding RoomPricePerDate, StringFormat=C}" Width="100"/>
+                    <DataGridTextColumn Header="Description" Binding="{Binding RoomDescription}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Booking Summary:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <TextBlock x:Name="NightsTextBlock" Text="Nights: 0" Margin="0,0,0,3"/>
+                    <TextBlock x:Name="PricePerNightTextBlock" Text="Price per night: $0.00" Margin="0,0,0,3"/>
+                </StackPanel>
+
+                <TextBlock Grid.Column="1" x:Name="TotalPriceTextBlock" Text="Total: $0.00" 
+                          FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="Book Now" Width="100" Height="35" Margin="0,0,10,0"
+                    Background="#27ae60" Foreground="White" BorderThickness="0"
+                    Click="BookButton_Click" x:Name="BookButton" IsEnabled="False"/>
+            <Button Content="Cancel" Width="80" Height="35"
+                    Background="#95a5a6" Foreground="White" BorderThickness="0"
+                    Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+
+</Window>

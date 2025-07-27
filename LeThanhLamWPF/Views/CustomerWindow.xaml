@@ -1,0 +1,117 @@
+﻿<Window x:Class="LeThanhLamWPF.Views.CustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LeThanhLamWPF.Views"
+        mc:Ignorable="d"
+         Title="FU Mini Hotel System - Customer Panel" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#2c3e50" Padding="20,10">
+            <Grid>
+                <TextBlock x:Name="WelcomeTextBlock" 
+                          Foreground="White" FontSize="18" FontWeight="Bold"
+                          VerticalAlignment="Center"/>
+                <Button Content="Logout" Click="LogoutButton_Click"
+                        HorizontalAlignment="Right" Padding="15,5"
+                        Background="#e74c3c" Foreground="White" BorderThickness="0"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <TabControl Grid.Row="1" Margin="10">
+            <!-- Profile Tab -->
+            <TabItem Header="My Profile">
+                <Grid Margin="20">
+                    <Border Background="White" CornerRadius="12" Padding="30" BorderBrush="#e0e0e0" BorderThickness="1" >
+                        <StackPanel>
+                            <!-- Avatar and Name -->
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,25" VerticalAlignment="Center">
+                                <Ellipse Width="70" Height="70" Fill="#eaf6fb" VerticalAlignment="Center">
+                                    <Ellipse.Stroke>
+                                        <SolidColorBrush Color="#3498db"/>
+                                    </Ellipse.Stroke>
+                                    <Ellipse.StrokeThickness>2</Ellipse.StrokeThickness>
+                                </Ellipse>
+                                <StackPanel Margin="20,0,0,0" VerticalAlignment="Center">
+                                    <TextBlock x:Name="FullNameTextBlock" FontSize="22" FontWeight="Bold" Foreground="#2c3e50"/>
+                                    <TextBlock x:Name="EmailTextBlock" FontSize="14" Foreground="#7f8c8d"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <!-- Info Grid -->
+                            <Grid Margin="0,0,0,20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Phone:" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="PhoneTextBlock" Margin="0,0,0,10"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Birthday:" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="BirthdayTextBlock" Margin="0,0,0,10"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Customer ID:" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="CustomerIDTextBlock" Margin="0,0,0,10"/>
+                            </Grid>
+
+                            <Button Content="Update Profile" Click="UpdateProfileButton_Click"
+                                    Width="150" Height="40" Margin="0,10,0,0"
+                                    Background="#3498db" Foreground="White" BorderThickness="0" HorizontalAlignment="Left"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- Booking Tab -->
+            <TabItem Header="Book a Room">
+                <Grid Margin="20">
+                    <Border Background="White" CornerRadius="12" Padding="30" BorderBrush="#e0e0e0" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="Book Your Stay" FontSize="22" FontWeight="Bold" Foreground="#2c3e50" Margin="0,0,0,20"/>
+                            <TextBlock Text="Find and book available rooms for your desired dates." 
+                                       FontSize="14" Foreground="#7f8c8d" Margin="0,0,0,25"/>
+                            <Button Content="Make a New Booking" Click="NewBookingButton_Click"
+                                    Width="200" Height="45" HorizontalAlignment="Left"
+                                    Background="#27ae60" Foreground="White" BorderThickness="0"
+                                    FontSize="16" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- Booking History Tab -->
+            <TabItem Header="Booking History">
+                <Grid Margin="20">
+                    <Border Background="White" CornerRadius="12" Padding="30" BorderBrush="#e0e0e0" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="Your Booking History" FontSize="22" FontWeight="Bold" Foreground="#2c3e50" Margin="0,0,0,20"/>
+                            <TextBlock Text="View and manage your current and past bookings." 
+                                       FontSize="14" Foreground="#7f8c8d" Margin="0,0,0,25"/>
+                            <Button Content="View Booking History" Click="ViewBookingHistoryButton_Click"
+                                    Width="200" Height="45" HorizontalAlignment="Left"
+                                    Background="#3498db" Foreground="White" BorderThickness="0"
+                                    FontSize="16" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+    
+</Window>

@@ -1,0 +1,184 @@
+﻿<Window x:Class="LeThanhLamWPF.Views.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LeThanhLamWPF.Views"
+        mc:Ignorable="d"
+        Title="FU Mini Hotel System - Admin Panel" Height="700" Width="1200"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#2c3e50" Padding="20,10">
+            <Grid>
+                <TextBlock Text="FU Mini Hotel System - Admin Panel" 
+                          Foreground="White" FontSize="18" FontWeight="Bold"
+                          VerticalAlignment="Center"/>
+                <Button Content="Logout" Click="LogoutButton_Click"
+                        HorizontalAlignment="Right" Padding="15,5"
+                        Background="#e74c3c" Foreground="White" BorderThickness="0"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <TabControl Grid.Row="1" Margin="10">
+            <!-- Customer Management Tab -->
+            <TabItem Header="Customer Management">
+                <Grid Margin="20">
+                    <Border Background="White" CornerRadius="12" Padding="20" BorderBrush="#e0e0e0" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="Customer Management" FontSize="20" FontWeight="Bold" Foreground="#2c3e50" Margin="0,0,0,20"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                                <TextBox x:Name="CustomerSearchTextBox" Width="220" Height="32" Margin="0,0,10,0"
+                                         VerticalContentAlignment="Center" Padding="8,4" Background="#f4f8fb" BorderBrush="#3498db" BorderThickness="1"/>
+                                <Button Content="Search" Click="SearchCustomersButton_Click"
+                                        Width="90" Height="32" Margin="0,0,10,0"/>
+                                <Button Content="Add" Click="AddCustomerButton_Click"
+                                        Width="80" Height="32" Margin="0,0,10,0"
+                                        Background="#27ae60" Foreground="White" BorderThickness="0"/>
+                                <Button Content="Edit" Click="EditCustomerButton_Click"
+                                        Width="80" Height="32" Margin="0,0,10,0"
+                                        Background="#f39c12" Foreground="White" BorderThickness="0"/>
+                                <Button Content="Delete" Click="DeleteCustomerButton_Click"
+                                        Width="90" Height="32"
+                                        Background="#e74c3c" Foreground="White" BorderThickness="0"/>
+                            </StackPanel>
+                            <DataGrid x:Name="CustomersDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0,0"
+                                      Background="#f7fafc" BorderBrush="#e0e0e0" BorderThickness="1" RowHeight="32">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Binding="{Binding CustomerId}" Width="50"/>
+                                    <DataGridTextColumn Header="Full Name" Binding="{Binding CustomerFullName}" Width="150"/>
+                                    <DataGridTextColumn Header="Email" Binding="{Binding EmailAddress}" Width="200"/>
+                                    <DataGridTextColumn Header="Phone" Binding="{Binding Telephone}" Width="120"/>
+                                    <DataGridTextColumn Header="Birthday" Binding="{Binding CustomerBirthday, StringFormat=dd/MM/yyyy}" Width="100"/>
+                                    <DataGridTextColumn Header="Status" Binding="{Binding CustomerStatus}" Width="80"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- Room Management Tab -->
+            <TabItem Header="Room Management">
+                <Grid Margin="20">
+                    <Border Background="White" CornerRadius="12" Padding="20" BorderBrush="#e0e0e0" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="Room Management" FontSize="20" FontWeight="Bold" Foreground="#2c3e50" Margin="0,0,0,20"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                                <TextBox x:Name="RoomSearchTextBox" Width="220" Height="32" Margin="0,0,10,0"
+                                         VerticalContentAlignment="Center" Padding="8,4" Background="#f4f8fb" BorderBrush="#3498db" BorderThickness="1"/>
+                                <Button Content="Search" Click="SearchRoomsButton_Click"
+                                        Width="90" Height="32" Margin="0,0,10,0"/>
+                                <Button Content="Add" Click="AddRoomButton_Click"
+                                        Width="80" Height="32" Margin="0,0,10,0"
+                                        Background="#27ae60" Foreground="White" BorderThickness="0"/>
+                                <Button Content="Edit" Click="EditRoomButton_Click"
+                                        Width="80" Height="32" Margin="0,0,10,0"
+                                        Background="#f39c12" Foreground="White" BorderThickness="0"/>
+                                <Button Content="Delete" Click="DeleteRoomButton_Click"
+                                        Width="90" Height="32"
+                                        Background="#e74c3c" Foreground="White" BorderThickness="0"/>
+                            </StackPanel>
+                            <DataGrid x:Name="RoomsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0,0"
+                                      Background="#f7fafc" BorderBrush="#e0e0e0" BorderThickness="1" RowHeight="32">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Binding="{Binding RoomId}" Width="50"/>
+                                    <DataGridTextColumn Header="Room Number" Binding="{Binding RoomNumber}" Width="100"/>
+                                    <DataGridTextColumn Header="Description" Binding="{Binding RoomDetailDescription}" Width="200"/>
+                                    <DataGridTextColumn Header="Capacity" Binding="{Binding RoomMaxCapacity}" Width="80"/>
+                                    <DataGridTextColumn Header="Price/Day" Binding="{Binding RoomPricePerDay, StringFormat=C}" Width="100"/>
+                                    <DataGridTextColumn Header="Room Type" Binding="{Binding RoomType.RoomTypeName}" Width="100"/>
+                                    <DataGridTextColumn Header="Status" Binding="{Binding RoomStatus}" Width="80"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- Bookings Tab -->
+            <TabItem Header="Bookings">
+                <Grid Margin="20">
+                    <Border Background="White" CornerRadius="12" Padding="20" BorderBrush="#e0e0e0" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="Bookings" FontSize="20" FontWeight="Bold" Foreground="#2c3e50" Margin="0,0,0,20"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                                <ComboBox x:Name="BookingStatusFilter" Width="180" Height="32" Margin="0,0,10,0"
+                                          SelectedIndex="0" SelectionChanged="BookingStatusFilter_SelectionChanged"
+                                          Background="#f4f8fb" BorderBrush="#3498db" BorderThickness="1">
+                                    <ComboBoxItem Content="All Bookings"/>
+                                    <ComboBoxItem Content="Active Bookings"/>
+                                    <ComboBoxItem Content="Cancelled Bookings"/>
+                                </ComboBox>
+                            </StackPanel>
+                            <DataGrid x:Name="BookingsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0,0"
+                                      Background="#f7fafc" BorderBrush="#e0e0e0" BorderThickness="1" RowHeight="32">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="ID" Binding="{Binding BookingReservationID}" Width="50"/>
+                                    <DataGridTextColumn Header="Customer" Binding="{Binding Customer.CustomerFullName}" Width="150"/>
+                                    <DataGridTextColumn Header="Room" Binding="{Binding RoomNumber}" Width="80"/>
+                                    <DataGridTextColumn Header="Room Type" Binding="{Binding RoomTypeName}" Width="100"/>
+                                    <DataGridTextColumn Header="Check-in" Binding="{Binding ActualStartDate, StringFormat=dd/MM/yyyy}" Width="100"/>
+                                    <DataGridTextColumn Header="Check-out" Binding="{Binding ActualEndDate, StringFormat=dd/MM/yyyy}" Width="100"/>
+                                    <DataGridTextColumn Header="Total Price" Binding="{Binding ActualPrice, StringFormat=C}" Width="100"/>
+                                    <DataGridTextColumn Header="Status" Binding="{Binding BookingStatusText}" Width="80"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- Reports Tab -->
+            <TabItem Header="Reports">
+                <Grid Margin="20">
+                    <Border Background="White" CornerRadius="12" Padding="20" BorderBrush="#e0e0e0" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="SYSTEM REPORT" FontSize="20" FontWeight="Bold" Foreground="#2c3e50" Margin="0,0,0,20"/>
+                            <UniformGrid Columns="4" Rows="1" Margin="0,0,0,20">
+                                <Border Background="#3498db" CornerRadius="8" Margin="5" Padding="15">
+                                    <StackPanel>
+                                        <TextBlock Text="Customers" Foreground="White" FontSize="14"/>
+                                        <TextBlock Text="{Binding TotalCustomers}" Foreground="White" FontSize="24" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="#27ae60" CornerRadius="8" Margin="5" Padding="15">
+                                    <StackPanel>
+                                        <TextBlock Text="Rooms" Foreground="White" FontSize="14"/>
+                                        <TextBlock Text="{Binding TotalRooms}" Foreground="White" FontSize="24" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="#f39c12" CornerRadius="8" Margin="5" Padding="15">
+                                    <StackPanel>
+                                        <TextBlock Text="Bookings" Foreground="White" FontSize="14"/>
+                                        <TextBlock Text="{Binding TotalBookings}" Foreground="White" FontSize="24" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="#e74c3c" CornerRadius="8" Margin="5" Padding="15">
+                                    <StackPanel>
+                                        <TextBlock Text="Revenue" Foreground="White" FontSize="14"/>
+                                        <TextBlock Text="{Binding TotalRevenue, StringFormat={}{0:C0}}" Foreground="White" FontSize="24" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+                            </UniformGrid>
+                            <Separator Margin="0,0,0,10"/>
+                            <StackPanel>
+                                <TextBlock Text="{Binding TotalCustomers, StringFormat='Total customers: {0}'}" FontSize="16" Margin="0,0,0,5"/>
+                                <TextBlock Text="{Binding TotalRooms, StringFormat='Total rooms: {0}'}" FontSize="16" Margin="0,0,0,5"/>
+                                <TextBlock Text="{Binding TotalBookings, StringFormat='Total bookings: {0}'}" FontSize="16" Margin="0,0,0,5"/>
+                                <TextBlock Text="{Binding TotalRevenue, StringFormat='Total revenue: {0:C}'}" FontSize="16" Margin="0,0,0,5"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+    
+</Window>
